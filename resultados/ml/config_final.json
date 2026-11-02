@@ -1,0 +1,18 @@
+{
+  "frente": "ml",
+  "modelo": "rf_d4_f2",
+  "n_arvores": 100,
+  "folha_frac": 0.01,
+  "folha_min": 10,
+  "candle": "1min",
+  "janela_meses": 12,
+  "limiar_q": 0.0,
+  "limiar": 0.0,
+  "tp_mult": null,
+  "sl_mult": null,
+  "custo_escolha_pts": 5,
+  "t_min": 2.0,
+  "criterio_grade": "nenhuma com t ≥ 2: menor Theil U",
+  "criterio_regra": "nenhuma regra com t ≥ 2: regra padrão (opera sempre, sem TP/SL)",
+  "criterio_variante": "nenhuma com t ≥ 2: menor Theil U"
+}

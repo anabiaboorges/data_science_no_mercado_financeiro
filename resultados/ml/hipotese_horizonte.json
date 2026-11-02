@@ -1,0 +1,21 @@
+{
+  "registrado_em": "2026-11-02, antes de treinar qualquer modelo com estes alvos",
+  "pergunta": "Treinar o RF de 1 min para prever o retorno dos próximos H minutos e segurar a posição por H minutos dá lucro depois dos custos?",
+  "motivacao": "na variante 'segurar posição', o modelo era treinado para o próximo minuto mas a posição ficava aberta 10-22 min; aqui o horizonte do alvo é alinhado ao tempo da operação",
+  "modelo": "mesmo modelo oficial (rf_d4_f2): 100 árvores, max_depth 4, folha mínima 2% do treino, max_features 0.5, random_state 42; features COMPLETO; candle 1min; janela 12 meses; re-treino trimestral",
+  "alvo": "retorno logarítmico (%) do fechamento de t ao fechamento de t+H, dentro do mesmo pregão; linhas sem H minutos até o fim do pregão ficam sem alvo e sem operação",
+  "horizontes_H_min": [10, 20],
+  "embargo": "H candles entre treino e previsão (o alvo da última linha de treino termina antes do 1º candle previsto)",
+  "regra_principal": {
+    "entrada": "compra se previsão > +limiar; vende se previsão < −limiar; só entra sem posição aberta",
+    "saida": "fechamento de t+H (horizonte fixo); depois volta a procurar sinal",
+    "custo": "5 pts por operação; sensibilidade 0 e 10 pts"
+  },
+  "limiares": "quantis 0%, 50%, 75%, 90% de |previsão| na validação 2024 de cada H",
+  "escolha": "na validação 2024, entre as 8 combinações H × limiar: maior esperança por operação com t >= 2; se nenhuma passar, a variante é considerada sem evidência e os testes ficam só como sensibilidade",
+  "periodos_de_teste": ["2025-01-01 a 2026-03-31", "2026-04-01 a 2026-09-25 (nunca visto; base só com WIN)"],
+  "referencias": ["aleatório: mesmas operações e durações com direção sorteada", "Clark-West da previsão de H minutos contra o naive (retorno previsto 0), HAC com H+5 defasagens"],
+  "sensibilidade_secundaria": "regra 'segurar até virar o sinal' com as previsões de H minutos (não entra na escolha)",
+  "criterio_de_sucesso": "esperança por operação > 0 com t >= 2 e fator de lucro > 1, custo 5 pts, na combinação escolhida na validação",
+  "compromisso": "todos os resultados são reportados; nada é re-ajustado depois de ver os períodos de teste"
+}

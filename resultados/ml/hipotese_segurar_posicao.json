@@ -1,0 +1,19 @@
+{
+  "registrado_em": "2026-11-02, antes de simular esta regra em qualquer período",
+  "pergunta": "Segurar a posição até a previsão mudar de sinal reduz o custo total o suficiente para o RF de 1 min dar lucro?",
+  "modelo": "modelo oficial da frente (config_final.json): rf_d4_f2, 100 árvores, max_depth 4, folha mínima 2% do treino, candle 1min, janela 12 meses, re-treino trimestral",
+  "regra": {
+    "entrada": "compra quando previsão > +limiar; vende quando previsão < −limiar",
+    "manutencao": "enquanto a previsão não passar o limiar do lado oposto, a posição é mantida (inclusive quando a previsão fica entre −limiar e +limiar)",
+    "virada": "previsão passa o limiar do lado oposto: fecha e abre no sentido contrário",
+    "fim_do_dia": "toda posição é zerada no último fechamento do pregão; o dia seguinte começa sem posição",
+    "take_profit_stop_loss": "não usados",
+    "custo": "5 pts por operação completa (2,5 na entrada + 2,5 na saída); uma virada custa 5 pts; sensibilidade 0 e 10 pts"
+  },
+  "limiares": "quantis 0%, 50%, 75% e 90% de |previsão| nas previsões de validação 2024 do modelo oficial",
+  "escolha_do_limiar": "na validação 2024: maior esperança por operação com t >= 2 (t calculado por operação completa); se nenhum passar, a variante é considerada sem evidência e os 4 limiares são reportados nos períodos de teste só como sensibilidade",
+  "periodos_de_teste": ["2025-01-01 a 2026-03-31 (teste oficial; as previsões já existiam, a regra é nova)", "2026-04-01 a 2026-09-25 (nunca visto; base só com WIN)"],
+  "referencias": ["regra oficial: uma operação por minuto", "aleatório: mesmas operações e durações, com a direção de cada operação sorteada"],
+  "criterio_de_sucesso": "esperança por operação > 0 com t >= 2 e fator de lucro > 1, com custo de 5 pts, no limiar escolhido na validação",
+  "compromisso": "todos os resultados são reportados; nada é re-ajustado depois de ver os períodos de teste"
+}

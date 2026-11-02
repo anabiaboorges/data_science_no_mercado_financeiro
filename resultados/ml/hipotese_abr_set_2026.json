@@ -1,0 +1,17 @@
+{
+  "registrado_em": "2026-11-02, antes de qualquer previsão no período",
+  "pergunta": "Candles maiores com limiar alto tornam o Random Forest lucrativo depois dos custos?",
+  "periodo_novo": "2026-04-01 a 2026-09-25 (WIN; nunca usado por nenhum modelo, a base comum termina em 01/04/2026 por causa do WDO)",
+  "base": "só WIN (o RF não usa o WDO); mesmas features COMPLETO do tt1_comum.py",
+  "modelo": "Random Forest base da grade: 100 árvores, max_depth 8, folha mínima 1% do treino (mín. 10), max_features 0.5, random_state 42",
+  "hipoteses": [
+    {"id": "H15", "candle": "15min", "janela_meses": 12},
+    {"id": "H60", "candle": "60min", "janela_meses": 12}
+  ],
+  "retreino": "trimestral, janela deslizante de 12 meses: treino abr/2025-mar/2026 prevê abr-jun/2026; treino jul/2025-jun/2026 prevê jul-set/2026",
+  "regra": "limiar = quantil 90% de |previsão| nas previsões de validação 2024 da mesma combinação (arquivo WIN_{candle}_12m_rf_val.csv); sem take profit; sem stop loss",
+  "custos_pts": [0, 5, 10],
+  "criterio_de_sucesso": "esperança por operação > 0 com t >= 2 e fator de lucro > 1, com custo de 5 pts",
+  "referencias": ["sinais aleatórios: direção sorteada nos mesmos candles em que o modelo opera", "teste de Clark-West da previsão contra o naive"],
+  "compromisso": "os dois resultados serão reportados; nada é re-ajustado depois de ver o período novo"
+}
