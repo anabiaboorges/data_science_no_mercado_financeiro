@@ -1,0 +1,141 @@
+ANA BEATRIZ BORGES CORDEIRO
+Falou alô alô alô.
+ITAMAR DA SILVA ROCHA FILHO
+E aí tudo bem? Estou bem também.
+ANA BEATRIZ BORGES CORDEIRO
+vou procurar aqui a minha pasta do trabalho Vem minha pasta que m****. Não vou baixar aqui que eu mandei no grupo mesmo. Se tu tá só tentando terminar de baixar é o slide para a gente separar bonitinho, o que que a gente vai fazer? O que que a gente apresenta amanhã? Vai outras apresentações. Que que você viu mais ou menos o que eu vi lá no Pessoal que tinha apresentado na aula que eu fui foi eles deram aquele em site de transações que aconteciam por hora tipo assim que era muito mais transação no início do pregão e foi tipo uma análise mesmo do data 7.
+Olá, estou transcrevendo esta chamada com minha extensão Tactiq AI. https://tactiq.io/r/transcribing
+E algumas coisas que eles tinham feito, né?
+ITAMAR DA SILVA ROCHA FILHO
+Sim, teve esse pessoal aí teve outro cara também. O Alexandro ele tá um pouco mais avançado. Ele já tá botando o modelo para fazer as previsões e fazendo uma simulação para ver como é que ele desempenho e tudo mais.
+ANA BEATRIZ BORGES CORDEIRO
+Tem de Putz, eu acho que isso aí é o que a gente deveria entregar amanhã também velho. Bota fé.
+ITAMAR DA SILVA ROCHA FILHO
+Sim sim, eu também acho.
+ANA BEATRIZ BORGES CORDEIRO
+Tá é aqui a gente separou, né? Estatístico machine learning redes neurais, a gente pegou série Max, né para fazer o básico vai ser o naive que vai ser a base para todo mundo então acho que a gente não precisa aprofundar muito nessa parte e as redes neurais eu posso pegar. o machine learning
+ITAMAR DA SILVA ROCHA FILHO
+Também não sei. Tem algumas outras coisas aqui que eu tinha anotado sobre fazer a parametrização isso daí que você tinha marcado fazer esse algoritmo. Aí eu acho que era para você fazer tipo agrupar os dados minutos para dois minutos três minutos e fazer o teste com cada uma dessas descrições de tempo e ver o que ficava melhor.
+ANA BEATRIZ BORGES CORDEIRO
+Entendi.
+ITAMAR DA SILVA ROCHA FILHO
+mas isso eu já até tinha feito aqui o que eu Não tava entendendo direito é como é que funciona o negócio do seriemax e na verdade não tava usando nenhum série Max, eu tava usando só o Guaíra que ela ficou outra versão aí de modelo regressivo que não usa variáveis exógenas e
+ANA BEATRIZ BORGES CORDEIRO
+Sim, o arame inclusive tá dentro do serumax, né?
+ITAMAR DA SILVA ROCHA FILHO
+outras coisas. É sim, sim, até onde eu entendi, é isso ou série diferente dele para o arima que ele é siso não que ele pega as tendências, tipo assim padroes ao longo do tempo e essa coisa variáveis, mas que aí é uma coisa que até jeitinho de você ver que tem que escolher assim, o que que você vai colocar como variações, eu já achei que era uma coisa mais complicada. Fiquei pensando e não fiz nada.
+ANA BEATRIZ BORGES CORDEIRO
+Pelo que eu tinha entendido. Inclusive essa parte do seriemax, ele ia ser bem legal. Acho que é por isso que inclusive o Thiago tinha mencionado porque a variável x né que seria exatamente o mini dólar no caso que a gente usar o mini dólar para ver o mini índice, só que aí na pesquisa Inicial que a gente
+ITAMAR DA SILVA ROCHA FILHO
+A gente podia apresentar esses dados aí todos né? Fazer apresentar para o
+ANA BEATRIZ BORGES CORDEIRO
+estava fazendo de correlação entre os dois ele chama correlação muito alta e muito instantânea, então assim que a gente viu uma um aumento no mini dólar a gente viu uma queda no mini índice e era tipo praticamente instantâneo. Então esse é muito difícil fazer essa correlação com x e inclusive quando eu tava perguntando para o Cláudio ele na verdade fez a correlação, ele rodou sério Max. E aí ele falou é não faz diferença não usar o x ou não eu falei.
+ITAMAR DA SILVA ROCHA FILHO
+Cláudio fez.
+ANA BEATRIZ BORGES CORDEIRO
+Velho, eu acho uma boa a gente mostra tipo assim o resultado do arenax. E aí a gente na verdade a gente até Embasa o que a gente tinha falado na última aula de essa correlação muito forte instantânea entre o menino índice e a gente roda também uma de dar uma olhada naquele até mandei o notebook com todas as interpretações lá do data 7, a gente dá uma olhada nisso e eu tento rodar um modelo de uma RF. Eu já tô trabalhando como do forte mesmo. Aí eu faço um RF. Vejo tempo de Essa atividade tempo de p**** tempo de resposta lá com o nome tempo.
+diferença da árvore. E aí fica faltando só redes neurais a gente fazer o comparativo, né?
+ITAMAR DA SILVA ROCHA FILHO
+Uma coisa tipo assim, como é que tá acontecendo no caso a simulação porque isso foi um ponto que o Alexandro tava discutindo lá como um professor, né? Porque você tem que construir makeu o simulador ele é onde você vai rodar o modelo para fazer as previsões simuladas dele, né? Você deixa tipo por causa
+ANA BEATRIZ BORGES CORDEIRO
+eu achei que
+ITAMAR DA SILVA ROCHA FILHO
+dele.
+ANA BEATRIZ BORGES CORDEIRO
+Não na verdade é porque a simulação que ele fez foi com base no que a gente dividiu o data 7, então tipo assim, a gente tinha um modelo de treino modelo de
+ITAMAR DA SILVA ROCHA FILHO
+É aquela divisão lá, né?
+ANA BEATRIZ BORGES CORDEIRO
+Exatamente é o final que foi inclusive 2025, se eu não me engano ficou todo para rodar mesmo o modelo que foi treinado com os últimos anos do data 7, né de assertividade, inclusive uma coisa que ele falava também. É porque a gente pode ir trocando, só que aí vai ter que fazer tudo do zero, né? Porque ele não pode ter conhecimento de dados passados. Então o que acontece a gente pode tentar treinar ele com um ano e aplicar ele nos próximos três ou treinar.
+com dois anos e aplicar nos próximos dois só que é uma trabalhadeira, né, mas dá para fazer.
+ITAMAR DA SILVA ROCHA FILHO
+Era isso outra coisa que eu ia comentar sobre essa questão do tempo também entrar como parâmetro e a gente comparar essas coisas, né?
+ANA BEATRIZ BORGES CORDEIRO
+Sim a gente pode tipo assim para falar.
+ITAMAR DA SILVA ROCHA FILHO
+Se eu fizesse tipo. Tem que fazer tipo só uma um modelo genérico, onde você colocar eu quero que você tenha ele com os dados de tanto até tanto ou então os dos últimos 12 meses ou qualquer coisa assim só entrar como parâmetro dentro do modelo, entendeu?
+ANA BEATRIZ BORGES CORDEIRO
+É não o treinamento não tem como ser assim, né? Porque eles vão ser modelos diferentes dependendo do treinamento que você faz então por exemplo, se a gente for decidir, qual vai ser a melhor janela para treinamento vai ser a gente vai ter que criar modelo diferente, né? Tipo modelo que vai ver olhar só as últimas só o primeiro trimestre o segundo trimestre etc, porque parâmetro mesmo é mais do tipo assim, o que que vai entrar dentro do modelo? O que que ele usa de parâmetro para calcular, mas no treinamento não o treinamento realmente é o que você ensinou para máquina e o que ela vai dar para saber né? Então ele não pode isso não. Pode ensinar ele com dado futuro, entendeu? Você sempre tem que ensinar cuidar do passado, mas aí a gente teria que criar vários modelos para a gente ver qual era o melhor cenário de dessa dessa partição de que seria o melhor cenário para a gente testar, né? Porque ainda tem que sobrar uma parte do data 7 para a gente usar mesmo, né? Para a gente ver se tá funcionando vai lhe dar.
+ITAMAR DA SILVA ROCHA FILHO
+Sim sim entendi.
+ANA BEATRIZ BORGES CORDEIRO
+Só que aí eu não sei se a gente faz isso, porque aí eu não. é que a gente vai comparar os três, né? Tipo assim, a gente tem que ver o melhor resultado dos três cenários tipo uma shilaniural e comparar esses três.
+ITAMAR DA SILVA ROCHA FILHO
+É eu acho que seria Tipo isso. Tipo, a ideia é o seguinte assim o objetivo da disciplina em si e quer ter ganho no mercado financeiro, né? Então a gente vai
+ANA BEATRIZ BORGES CORDEIRO
+uhum
+ITAMAR DA SILVA ROCHA FILHO
+comparar o retorno que cada um desses modelos aplica e daí pode ser? Tipo assim. Ah, sei lá, eu treinei um modelo aqui porque eu tenho essa essa dúvida na minha cabeça, tipo assim, será que precisam te dá vai realmente fazer diferença. Se você treinar com dados de cinco anos ou será que para o curto prazo Ali você vai perder 15 minutos no futuro de um ano já vai ser Ok sabe.
+ANA BEATRIZ BORGES CORDEIRO
+exatamente
+ITAMAR DA SILVA ROCHA FILHO
+Ou se até dados muitos antigos não vão estar meio que tipo assim defasados com alguma tendência de mercado que existia e não existe mais então são muitas perguntas, mas o ponto é a gente pode fazer a comparação de retorno do dos modelos mesmo que eles sejam diferentes e tenham sido treinados com enfim período Diferentes, né? Porque no final das contas é só o retorno, né? Então aqui ainda assim seria algo comparável.
+ANA BEATRIZ BORGES CORDEIRO
+Sim, sim. No caso a gente estava quando a gente estava. Treinamento que a gente tava pegando e esse é o modelo de Treinamento dinâmico que ele ia ser retreinado. Com base no tempo, então ele tava sempre olhando para um semestre atrás, se não me engano, então ele olhava para os seis últimos meses e aplicava nos três futuros para testar durante o teste, né? E aí eu acho que esses seis últimos meses ele ficou legal porque ou três acho que era três últimos meses ele fica legal, porque ele não fica alucinando com dado muito histórico, ele não fica muito pesado também para retreino e ele cabe bem na nossa janela de treinamento, né? Que sobra Janeiro de 25. Até março de 2026 para a gente realmente testar o modelo completo tipo assim ver como é que ele vai lhe dou.
+ITAMAR DA SILVA ROCHA FILHO
+isso eu acho que a gente devia fazer justamente tipo assim comparativo entre essas janelas de Treinamento diferente e colocar os dados que a gente tiver tipo assim, ó, a gente treinou o modelo olhando um mês para trás só dois meses três meses e botar tipo assim os gráficos de tudo isso a gente vê como é que a gente pode apresentar melhor esses dados e falar não é por isso a gente decidiu que Aqui com seis meses é o melhor hoje ver qual que realmente foi o melhor, né que teve o melhor resultado.
+ANA BEATRIZ BORGES CORDEIRO
+Nossa, é uma boa. Inclusive, a gente faz isso tanto com a janela de observação, né? De quanto tempo ele vai usar para treinar tanto quanto o candle né? Que que a gente vai definir como não kendo se ele vai ser de um
+ITAMAR DA SILVA ROCHA FILHO
+isso
+ANA BEATRIZ BORGES CORDEIRO
+minuto de 15 de 60.
+ITAMAR DA SILVA ROCHA FILHO
+E daí se conseguir pensar em outras coisas assim também porque se for o que o
+ANA BEATRIZ BORGES CORDEIRO
+Top eu acho que tipo assim.
+ITAMAR DA SILVA ROCHA FILHO
+Thiago acho que quer da gente é explorar caminhos assim de ver coisas que podem ser fazer dar certo, né? Então só fazer o básico mesmo. Acho que ele vai achar que tipo assim, você tem que incrementar mais todos tiver tipo assim coisas assim de que a gente ao invés de escolher só um número fixo. Ah, não vamos a seis meses a gente testar e falar assim, a gente testou todos os cenários aqui e viu que esse aqui era o que tava dando mais certo. Acho que ele vai gostar disso, entende?
+ANA BEATRIZ BORGES CORDEIRO
+Eu também acho e outra coisa que ele tinha mencionado também no nosso trabalho. Era que não era para falar só se vai subir ou se vai descer, mas o quanto vai subir o quanto vai descer.
+ITAMAR DA SILVA ROCHA FILHO
+Exatamente porque é isso que a gente no caso vai ter que prever, né que eu até anotei, deixa eu pegar aqui que é a questão do stop loss que é onde para tomar decisões, tipo assim. Ah vai comprar aqui e a gente tá esperando que vai subir, né? Aí quanto que ele tem que subir para a gente vender e realizar o lucro ou quando é que a gente vende mesmo se ele cair para minimizar as perdas, né? Ele falou que a esperança matemática.
+Tem que ser maior do que um né para você, enfim, tem um modelo que vai realmente conseguir gerar lucro ali.
+ANA BEATRIZ BORGES CORDEIRO
+
+
+🎯
+
+✅
+
+❓
+
+💡
+
+
+
+Pode ser velho eu vou só repetir para ficar na transcrição bem legal, então o que que a gente tem que fazer agora fazer o teste tanto com a janela de Treinamento tanto quanto o tamanho do candle para a gente achar uma melhor janela de Treinamento com a melhor janela de o maior tamanho do piano para a
+ITAMAR DA SILVA ROCHA FILHO
+O problema que o cara lá tava tendo que o modelo dele Tipo assim acertava 90%
+ANA BEATRIZ BORGES CORDEIRO
+gente ver a melhor atividade e depois que a gente vê qual é o melhor modelo de treinamento para assertividade. A gente tem que ver definir nossos parâmetros para quando ele vai vender e quando ele vai comprar. Porque tipo assim às vezes você Tá acertando muito, mas você tá rendendo pouco no teste, por exemplo. Quero que ele tava falando.
+ITAMAR DA SILVA ROCHA FILHO
+das vezes e mesmo assim ele tomava prejuízo na simulação lá porque quando ele acertava e ganhava pouco quando ele é rápido e perdeu muito e daí o professor inclusive ele é mais da linha do contrário, né? Tipo assim o melhor cenário.
+ANA BEATRIZ BORGES CORDEIRO
+menos assertividade e mais Profit
+ITAMAR DA SILVA ROCHA FILHO
+E mais retorno exatamente você pode errar tipo assim 90% das vezes se quando você acerta você ganha muito e você compensa A perda, né?
+ANA BEATRIZ BORGES CORDEIRO
+Legal e também eu acho que também sei também. isso aí vai vir depois que a gente achou essa. Nossa eu imagino né? Que a gente acha a nossa maior janela de assertividade no modelo. E aí depois a gente vai capar, né o modelo no capa no sentido no sentido. realmente realizar então, tipo assim, a gente fala pô você Tá acertando muito, mas você só pode comprar de verdade. Quando você tiver é tanto por cento de crescimento e você tiver tal nível de certeza, eu acho que isso fica uma boa.
+ITAMAR DA SILVA ROCHA FILHO
+Sim, sim.
+ANA BEATRIZ BORGES CORDEIRO
+Então é isso, mano.
+ITAMAR DA SILVA ROCHA FILHO
+Acho que é isso então, como é que você quer dividir essas coisas aí para a gente fazer agora, você vai fazer a questão do modelo aí com handle forest. Aí tem que ver.
+ANA BEATRIZ BORGES CORDEIRO
+Eu vou fazer agora é pode ser vou fazer o renda forte agora que eu acho. gente eu acho que não vale a pena a gente ficar testando muito de uma mesma fatia, né? Tipo o renda forte o light gbm até porque ele falou que o light Light BM nem faz sentido no nosso projeto o Thiago. Eu acho que tipo assim cada um escolhe um você já tá no arima, né no série Max, eu não sei se você vai fazer essa parte do retorno também no série Max, porque seria tipo o dobro de trabalho, né? Porque você tem que fazer tanto parei mas quando sarimax eu vou fazer o drf. Então vou pegar essa parte da segmentação do treino e do candle, eu vou testar para todos eles e ver o melhor cenário. E aí quando a gente terminar os dois a gente decide, o que que seria os parâmetros para fazer alguém para fazer a máquina, né? Comprar ou vender.
+E aí o Modesto fica com redes neurais.
+ITAMAR DA SILVA ROCHA FILHO
+Tá bom.
+ANA BEATRIZ BORGES CORDEIRO
+E velho, eu acho que ele não vai cobrar muito de verdade, ele não cobrou muito do pessoal conhecimento mesmo sobre o modelo, né? Ele cobrou mais é conhecimento sobre o que que você vai fazer com o modelo, então tipo assim, ele perguntava bastante, mas o que que isso aqui quer dizer não sobre o modelo em si, mas o que que ele chegou na conclusão, entendeu?
+ITAMAR DA SILVA ROCHA FILHO
+Sim, se ele reclamando os gráficos lá do pessoal que não fazia sentido a questão fazendo.
+ANA BEATRIZ BORGES CORDEIRO
+Sim que tava contraditório. É não, acho que é isso, velho. A gente dá uma bizoiada. Acho que hoje até hoje à noite a gente consegue gerar uns gráficos legais e aí a gente toca e vê se ele faz sentido. Tá eu vou pegar a transição dessa reunião aqui, vou gerar uma ata. E aí eu vou gerar tem marquidal também, eu não sei se você está usando o Cláudio também.
+Tá eu vou gerar um mb para gente uma expec do que que a gente vai ter que fazer, né? Qual é o plano de agora com base nessa transcrição? E aí cada um pega no que você tá fazendo, né? Vou pegar na parte de ML você pega no estatístico e uma dessa só joga o mesmo MD para rede neural. Que aí a gente tem certeza que a gente vai ter o mesmo resultado no final.
+ITAMAR DA SILVA ROCHA FILHO
+Tá bom.
+ANA BEATRIZ BORGES CORDEIRO
+Fechou então

@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Previsão T(t+1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --papel: #EEF2F0;
+    --folha: #FBFCFB;
+    --tinta: #12233D;
+    --tinta-2: #4A5A6E;
+    --grade: #C9D3D0;
+    --janela: #DCE6F2;
+    --azul: #1F5FA8;
+    --previsao: #C0661A;
+    --previsao-claro: #F6E6D8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: #D6DDDA;
+    color: var(--tinta);
+    font-family: "Archivo", system-ui, sans-serif;
+    font-variation-settings: "wdth" 100;
+    overflow: hidden;
+  }
+
+  /* ---------- palco: slides de 1280×720 escalados para caber na tela ---------- */
+  .palco { position: fixed; inset: 0; display: grid; place-items: center; }
+  .slide {
+    position: absolute;
+    width: 1280px; height: 720px;
+    background: var(--folha);
+    background-image:
+      linear-gradient(var(--papel) 1px, transparent 1px),
+      linear-gradient(90deg, var(--papel) 1px, transparent 1px);
+    background-size: 40px 40px;
+    padding: 38px 64px 30px;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 2px 30px rgba(18, 35, 61, .18);
+    transform-origin: center center;
+  }
+  .slide.ativo { display: flex; }
+
+  h1 {
+    font-size: 46px; line-height: 1.02; font-weight: 750;
+    font-variation-settings: "wdth" 122;
+    letter-spacing: -0.01em;
+  }
+  h2 {
+    font-size: 21px; font-weight: 700; line-height: 1.15;
+    font-variation-settings: "wdth" 112;
+  }
+  h3 { font-size: 17px; font-weight: 700; line-height: 1.2; }
+  p, li { font-size: 15.5px; line-height: 1.42; color: var(--tinta-2); }
+  strong { color: var(--tinta); font-weight: 650; }
+  .sub { font-size: 18px; color: var(--tinta-2); margin-top: 8px; }
+  .rodape {
+    margin-top: auto; padding-top: 14px;
+    display: flex; justify-content: space-between;
+    font-size: 13px; color: var(--tinta-2);
+    border-top: 1px solid var(--grade);
+  }
+
+  /* ---------- slide 1 ---------- */
+  .s1-topo { display: grid; grid-template-columns: 500px 1fr; gap: 44px; margin-top: 20px; align-items: start; }
+  .grafico { background: var(--folha); border: 1px solid var(--grade); padding: 10px 12px 4px; }
+  .grafico svg { display: block; width: 100%; height: auto; }
+  .formula {
+    font-size: 25px; font-weight: 500; color: var(--tinta);
+    font-variation-settings: "wdth" 100;
+    margin: 4px 0 12px; letter-spacing: .01em;
+  }
+  .formula .chapeu { color: var(--previsao); font-weight: 700; }
+  .objetivo { margin-top: 12px; padding: 14px 18px; background: var(--previsao-claro); border-left: 4px solid var(--previsao); }
+  .objetivo p { color: var(--tinta); }
+
+  .escala { margin-top: 20px; }
+  .escala-eixo {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px; color: var(--tinta-2); margin-bottom: 8px;
+  }
+  .escala-eixo span.linha { flex: 1; height: 2px; margin: 0 12px; background: linear-gradient(90deg, var(--grade), var(--tinta)); position: relative; }
+  .escala-eixo span.linha::after {
+    content: ""; position: absolute; right: -2px; top: -4px;
+    border-left: 8px solid var(--tinta); border-top: 5px solid transparent; border-bottom: 5px solid transparent;
+  }
+  .familias { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 3px solid var(--tinta); }
+  .familia { padding: 12px 18px 0 0; }
+  .familia + .familia { padding-left: 18px; border-left: 1px solid var(--grade); }
+  .familia p { font-size: 14px; margin-top: 4px; }
+  .familia .ex { font-size: 13.5px; margin-top: 7px; color: var(--azul); font-weight: 550; }
+
+  /* ---------- slide 2 ---------- */
+  .s2 { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; margin-top: 26px; flex: 1; }
+  .ativos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0 20px; }
+  .ativo-bloco { border: 1px solid var(--grade); background: var(--folha); padding: 14px 16px; }
+  .ativo-bloco .nome { font-size: 30px; font-weight: 780; font-variation-settings: "wdth" 125; line-height: 1; }
+  .ativo-bloco .desc { font-size: 13.5px; margin-top: 4px; }
+  .ativo-bloco dl { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; margin-top: 10px; font-size: 14px; }
+  .ativo-bloco dt { color: var(--tinta-2); }
+  .ativo-bloco dd { color: var(--tinta); font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+  .achados { list-style: none; }
+  .achados li { padding: 7px 0; border-top: 1px solid var(--grade); font-size: 14.5px; }
+  .achados li:last-child { border-bottom: 1px solid var(--grade); }
+
+  .regua { margin-top: 12px; }
+  .criterio { display: grid; grid-template-columns: 150px 1fr; gap: 14px; padding: 9px 0; border-top: 1px solid var(--grade); align-items: baseline; }
+  .criterio:last-of-type { border-bottom: 1px solid var(--grade); }
+  .criterio h3 { font-size: 15.5px; }
+  .criterio p { font-size: 14.5px; }
+  .meta { color: var(--previsao); font-weight: 700; white-space: nowrap; }
+  .regra { margin-top: 16px; padding: 14px 18px; background: var(--tinta); }
+  .regra p { color: #E8EEF6; font-size: 15.5px; }
+  .regra strong { color: #fff; }
+
+  /* ---------- slide 3 ---------- */
+  .linha-tempo { margin-top: 18px; }
+  .barra { display: flex; height: 44px; font-size: 14.5px; font-weight: 650; }
+  .barra > div { display: flex; flex-direction: column; justify-content: center; padding: 0 12px; color: #fff; }
+  .barra small { font-weight: 400; font-size: 12.5px; opacity: .9; }
+  .seg-aquec { flex: 0 0 18.18%; background: #9AA8B8; color: var(--tinta) !important; }
+  .seg-dev { flex: 0 0 59.09%; background: var(--azul); }
+  .seg-teste { flex: 0 0 22.73%; background: var(--previsao); }
+
+  .wf { margin-top: 7px; }
+  .wf-linhas { display: grid; gap: 4px; }
+  .wf-linha { display: flex; height: 12px; }
+  .wf-linha .tr { background: #9AA8B8; }
+  .wf-linha .dev { background: var(--azul); }
+  .wf-linha .te { background: var(--previsao); }
+  .wf-linha .fora { border-bottom: 1px dashed var(--grade); height: 7px; }
+  .wf-pula { height: 6px; }
+  .wf p { margin-top: 8px; font-size: 14px; }
+
+  .passos { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 18px; border-top: 3px solid var(--tinta); }
+  .passo { padding: 12px 14px 0 0; }
+  .passo + .passo { padding-left: 14px; border-left: 1px solid var(--grade); }
+  .passo .num {
+    font-size: 30px; font-weight: 800; line-height: 1; color: var(--grade);
+    font-variation-settings: "wdth" 125;
+  }
+  .passo h2 { margin-top: 5px; font-size: 19px; }
+  .passo .quando { font-size: 12.5px; color: var(--azul); font-weight: 650; margin-top: 3px; }
+  .passo ul { margin-top: 7px; padding-left: 15px; }
+  .passo li { font-size: 13.5px; line-height: 1.36; margin-bottom: 4px; }
+  .passo.destaque .num, .passo.destaque .quando { color: var(--previsao); }
+
+  .quem-decide { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 14px; }
+  .quem-decide > div { padding: 9px 14px; font-size: 13.5px; line-height: 1.4; color: var(--tinta-2); }
+  .quem-decide .igual { background: var(--janela); }
+  .quem-decide .livre { background: var(--previsao-claro); }
+  .quem-decide strong { display: block; color: var(--tinta); font-size: 14px; }
+
+  /* ---------- navegação ---------- */
+  .nav {
+    position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 8px; align-items: center;
+    background: var(--tinta); color: #fff; padding: 6px 8px; font-size: 13px;
+  }
+  .nav button {
+    font: inherit; color: #fff; background: transparent; border: 1px solid #4A5A6E;
+    padding: 5px 12px; cursor: pointer;
+  }
+  .nav button:hover { background: #24395A; }
+  .nav button:focus-visible { outline: 2px solid var(--previsao); outline-offset: 2px; }
+  .nav .contador { padding: 0 8px; font-variant-numeric: tabular-nums; }
+
+  @media print {
+    @page { size: 1280px 720px; margin: 0; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    body { background: none; overflow: visible; }
+    .palco { position: static; display: block; }
+    .slide { display: flex !important; position: relative; transform: none !important; box-shadow: none; page-break-after: always; break-after: page; }
+    .nav { display: none; }
+  }
+</style>
+</head>
+<body>
+<main class="palco" id="palco">
+
+  <!-- ==================== SLIDE 1 ==================== -->
+  <section class="slide" aria-label="Slide 1: objetivo">
+    <h1>Prever o próximo candle</h1>
+    <p class="sub">Comparação de modelos de previsão T(t+1) para o mini índice (WIN) e o mini dólar (WDO) da B3</p>
+
+    <div class="s1-topo">
+      <figure class="grafico">
+        <svg id="candles" viewBox="0 0 540 250" role="img" aria-label="Candles até o instante t e o candle t+1 desconhecido, marcado com interrogação"></svg>
+      </figure>
+
+      <div>
+        <h2>O que é o T(t+1)</h2>
+        <p style="margin-top:8px">Com tudo o que se sabe até o instante <strong>t</strong>, estimar o que acontece no candle seguinte, <strong>t+1</strong>. A cada novo candle a janela anda um passo e uma nova previsão é feita.</p>
+        <p class="formula"><span class="chapeu">ŷ<sub>t+1</sub></span> = f( y<sub>t</sub>, y<sub>t−1</sub>, …, X<sub>t</sub> )</p>
+        <p>y são os retornos passados do ativo; X são outras informações conhecidas em t, como volume, volatilidade, horário e o outro ativo.</p>
+        <div class="objetivo">
+          <p><strong>Objetivo do projeto:</strong> vamos colocar várias famílias de modelos para prever o retorno do próximo candle, nas mesmas condições, e descobrir se alguma supera a previsão ingênua ("o preço não muda") em dados que o modelo nunca viu.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="escala">
+      <h2 style="font-size:18px;margin-bottom:8px">Modelos que queremos testar</h2>
+      <div class="escala-eixo"><span>Mais simples e interpretável</span><span class="linha"></span><span>Mais flexível, exige mais dados</span></div>
+      <div class="familias">
+        <div class="familia">
+          <h3>Básicos</h3>
+          <p>Regras fixas, não aprendem nada. Servem de régua: qualquer modelo precisa ser melhor que eles.</p>
+          <p class="ex">Naive, média histórica</p>
+        </div>
+        <div class="familia">
+          <h3>Estatísticos</h3>
+          <p>Uma equação com poucos parâmetros estimados no passado da série. Assumem uma estrutura, como memória e sazonalidade.</p>
+          <p class="ex">ARIMA, SARIMAX, GARCH</p>
+        </div>
+        <div class="familia">
+          <h3>Machine learning</h3>
+          <p>Aprendem a relação direto dos dados, sem fórmula definida antes. Combinam muitas variáveis e captam efeitos não lineares.</p>
+          <p class="ex">Ridge, Random Forest, LightGBM</p>
+        </div>
+        <div class="familia">
+          <h3>Redes neurais</h3>
+          <p>Camadas de neurônios artificiais. As recorrentes leem a sequência de candles e guardam memória do que veio antes.</p>
+          <p class="ex">MLP, LSTM</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rodape"><span>Data Science no Mercado Financeiro</span><span>1 / 3</span></div>
+  </section>
+
+  <!-- ==================== SLIDE 2 ==================== -->
+  <section class="slide" aria-label="Slide 2: dados e critérios">
+    <h1>Os dados e a régua de avaliação</h1>
+
+    <div class="s2">
+      <div>
+        <h2>Candles de 1 minuto, séries contínuas da B3</h2>
+        <div class="ativos">
+          <div class="ativo-bloco">
+            <div class="nome">WIN</div>
+            <p class="desc">Mini índice (Ibovespa futuro)</p>
+            <dl>
+              <dt>Candles</dt><dd>757.716</dd>
+              <dt>Pregões</dt><dd>1.368</dd>
+              <dt>Período</dt><dd>out/2020 a set/2026</dd>
+            </dl>
+          </div>
+          <div class="ativo-bloco">
+            <div class="nome">WDO</div>
+            <p class="desc">Mini dólar</p>
+            <dl>
+              <dt>Candles</dt><dd>717.232</dd>
+              <dt>Pregões</dt><dd>1.288</dd>
+              <dt>Período</dt><dd>set/2020 a abr/2026</dd>
+            </dl>
+          </div>
+        </div>
+
+        <h2 style="font-size:18px">O que a análise exploratória mostrou</h2>
+        <ul class="achados" style="margin-top:8px">
+          <li><strong>Base limpa, mas com buracos:</strong> sem nulos ou duplicatas; faltam dados de jun a out de 2023.</li>
+          <li><strong>O preço não é estacionário:</strong> por isso os modelos vão trabalhar com retornos.</li>
+          <li><strong>A direção é quase imprevisível:</strong> altas e baixas equilibradas e autocorrelação perto de zero.</li>
+          <li><strong>O tamanho do movimento é mais previsível:</strong> a volatilidade vem em ondas e é maior na abertura.</li>
+          <li><strong>WIN e WDO andam em sentidos opostos</strong> no mesmo candle (−0,50), mas um quase não antecipa o outro.</li>
+          <li><strong>Trocas de contrato criam saltos falsos</strong> de preço, que serão tratados na preparação.</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Critérios de avaliação</h2>
+        <p style="margin-top:8px">Todos os modelos serão comparados com o <strong>naive</strong>, nos mesmos candles de teste.</p>
+        <div class="regua">
+          <div class="criterio"><h3>Erro de previsão</h3><p>Theil U = erro do modelo ÷ erro do naive. <span class="meta">Meta: &lt; 1</span></p></div>
+          <div class="criterio"><h3>Ganho explicado</h3><p>R² fora da amostra. <span class="meta">Meta: &gt; 0</span></p></div>
+          <div class="criterio"><h3>Acerto da direção</h3><p>% de vezes que acerta se sobe ou desce. <span class="meta">Meta: &gt; 50%</span></p></div>
+          <div class="criterio"><h3>Significância</h3><p>Testes de Clark-West e Diebold-Mariano: o ganho é real ou sorte?</p></div>
+          <div class="criterio"><h3>Resultado financeiro</h3><p>Backtest com custos de operação: retorno, Sharpe e perda máxima.</p></div>
+          <div class="criterio"><h3>Custo de uso</h3><p>Tempo de re-treino e tempo de resposta por candle. <span class="meta">Meta: &lt; duração do candle</span></p></div>
+        </div>
+        <div class="regra">
+          <p><strong>Um modelo só tem valor</strong> se superar o naive em dados nunca vistos, com significância estatística, e se o ganho sobreviver aos custos. Entre modelos equivalentes, fica o mais simples e barato.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rodape"><span>Data Science no Mercado Financeiro</span><span>2 / 3</span></div>
+  </section>
+
+  <!-- ==================== SLIDE 3 ==================== -->
+  <section class="slide" aria-label="Slide 3: fluxo de cada teste">
+    <h1>Como cada modelo será testado</h1>
+    <p class="sub">O mesmo roteiro será aplicado a todos os modelos, do naive à rede neural</p>
+
+    <div class="linha-tempo">
+      <div class="barra" role="img" aria-label="Linha do tempo: primeira janela de outubro de 2020 a setembro de 2021, desenvolvimento de outubro de 2021 a dezembro de 2024, teste de janeiro de 2025 a março de 2026">
+        <div class="seg-aquec">1ª janela<small>out/2020 a set/2021</small></div>
+        <div class="seg-dev">Desenvolvimento<small>out/2021 a dez/2024</small></div>
+        <div class="seg-teste">Teste<small>jan/2025 a mar/2026</small></div>
+      </div>
+    </div>
+
+    <div class="wf">
+      <div class="wf-linhas" aria-hidden="true">
+        <div class="wf-linha"><div class="fora" style="flex:0"></div><div class="tr" style="flex:12"></div><div class="dev" style="flex:3"></div><div class="vazio" style="flex:51"></div></div>
+        <div class="wf-linha"><div class="fora" style="flex:3"></div><div class="tr" style="flex:12"></div><div class="dev" style="flex:3"></div><div class="vazio" style="flex:48"></div></div>
+        <div class="wf-pula"></div>
+        <div class="wf-linha"><div class="fora" style="flex:36"></div><div class="tr" style="flex:12"></div><div class="dev" style="flex:3"></div><div class="vazio" style="flex:15"></div></div>
+        <div class="wf-pula"></div>
+        <div class="wf-linha"><div class="fora" style="flex:39"></div><div class="tr" style="flex:12"></div><div class="te" style="flex:3"></div><div class="vazio" style="flex:12"></div></div>
+        <div class="wf-linha"><div class="fora" style="flex:42"></div><div class="tr" style="flex:12"></div><div class="te" style="flex:3"></div><div class="vazio" style="flex:9"></div></div>
+        <div class="wf-pula"></div>
+        <div class="wf-linha"><div class="fora" style="flex:51"></div><div class="tr" style="flex:12"></div><div class="te" style="flex:3"></div><div class="vazio" style="flex:0"></div></div>
+      </div>
+      <p><strong>Walk-forward:</strong> o modelo será treinado só com os últimos 12 meses (cinza) e vai prever o trimestre seguinte, candle a candle. Depois a janela desliza. Serão 13 rodadas no desenvolvimento (azul) e 5 no teste (laranja).</p>
+    </div>
+
+    <div class="passos">
+      <div class="passo">
+        <div class="num">1</div>
+        <h2>Preparação</h2>
+        <p class="quando">Base inteira</p>
+        <ul>
+          <li>Candles de 15 e 60 min</li>
+          <li>Retornos dentro do pregão</li>
+          <li>Variáveis só com dados até t</li>
+        </ul>
+      </div>
+      <div class="passo">
+        <div class="num">2</div>
+        <h2>Variáveis</h2>
+        <p class="quando">Desenvolvimento</p>
+        <ul>
+          <li>Grupos em camadas: retornos passados, forma do candle e volume, o outro ativo, calendário</li>
+          <li>Um grupo só fica se melhorar a previsão</li>
+        </ul>
+      </div>
+      <div class="passo">
+        <div class="num">3</div>
+        <h2>Ajuste</h2>
+        <p class="quando">Desenvolvimento</p>
+        <ul>
+          <li>Hiperparâmetros de cada modelo</li>
+          <li>Tamanho da janela (12, 18 meses ou tudo)</li>
+          <li>Frequência do re-treino</li>
+        </ul>
+      </div>
+      <div class="passo">
+        <div class="num">4</div>
+        <h2>Congelamento</h2>
+        <p class="quando">dez/2024</p>
+        <ul>
+          <li>A configuração de cada modelo será registrada</li>
+          <li>Depois disso, nada muda</li>
+        </ul>
+      </div>
+      <div class="passo destaque">
+        <div class="num">5</div>
+        <h2>Teste e avaliação</h2>
+        <p class="quando">Rodado uma única vez</p>
+        <ul>
+          <li>Re-treinos com a configuração congelada</li>
+          <li><strong>Eficácia:</strong> naive, direção, significância, backtest</li>
+          <li><strong>Custo:</strong> tempo de re-treino e de resposta</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quem-decide">
+      <div class="igual"><strong>Igual para todos os modelos</strong>Candles de teste, alvo, regras contra vazamento, métricas e o mesmo esforço de ajuste</div>
+      <div class="livre"><strong>Escolhido para cada modelo</strong>Variáveis, tamanho da janela, frequência do re-treino e hiperparâmetros</div>
+    </div>
+
+    <div class="rodape"><span>Data Science no Mercado Financeiro</span><span>3 / 3</span></div>
+  </section>
+</main>
+
+<nav class="nav" aria-label="Navegação dos slides">
+  <button type="button" id="ant" aria-label="Slide anterior">Anterior</button>
+  <span class="contador" id="contador" aria-live="polite">1 / 3</span>
+  <button type="button" id="prox" aria-label="Próximo slide">Próximo</button>
+  <button type="button" id="tela" aria-label="Tela cheia">Tela cheia</button>
+</nav>
+
+<script>
+  // ---------- candles ilustrativos do slide 1 ----------
+  (function () {
+    const svg = document.getElementById("candles");
+    const NS = "http://www.w3.org/2000/svg";
+    const el = (tag, attrs, txt) => {
+      const e = document.createElementNS(NS, tag);
+      for (const k in attrs) e.setAttribute(k, attrs[k]);
+      if (txt) e.textContent = txt;
+      svg.appendChild(e);
+      return e;
+    };
+    // [abertura, máxima, mínima, fechamento] em unidades de preço ilustrativas
+    const dados = [
+      [50, 54, 47, 53], [53, 58, 52, 57], [57, 58, 51, 52], [52, 55, 48, 54],
+      [54, 61, 53, 60], [60, 62, 55, 56], [56, 59, 50, 51], [51, 56, 49, 55],
+      [55, 60, 54, 59], [59, 63, 57, 61]
+    ];
+    const W = 540, topo = 18, base = 200, x0 = 20, passo = 44, larg = 22;
+    const y = v => base - (v - 44) / (66 - 44) * (base - topo);
+    const xt = dados.length * passo + x0;   // posição do candle t+1
+
+    // janela de informação (até t)
+    el("rect", { x: x0 - 8, y: topo - 8, width: xt - x0 - 6, height: base - topo + 16, fill: "#DCE6F2", opacity: .55 });
+    el("text", { x: x0, y: base + 34, "font-size": 12.5, fill: "#1F5FA8", "font-weight": 600 }, "informação disponível");
+
+    dados.forEach((c, i) => {
+      const [o, h, l, f] = c, cx = x0 + i * passo + larg / 2, sobe = f >= o;
+      el("line", { x1: cx, x2: cx, y1: y(h), y2: y(l), stroke: "#12233D", "stroke-width": 1.5 });
+      el("rect", {
+        x: cx - larg / 2, y: y(Math.max(o, f)), width: larg, height: Math.max(2, Math.abs(y(o) - y(f))),
+        fill: sobe ? "#FBFCFB" : "#12233D", stroke: "#12233D", "stroke-width": 1.5
+      });
+    });
+
+    // candle t+1: desconhecido
+    const cx = xt + 14 + larg / 2;
+    el("rect", { x: cx - larg / 2 - 4, y: y(64), width: larg + 8, height: y(56) - y(64),
+                 fill: "#F6E6D8", stroke: "#C0661A", "stroke-width": 2, "stroke-dasharray": "5 4" });
+    el("text", { x: cx, y: y(60) + 9, "text-anchor": "middle", "font-size": 26, "font-weight": 800, fill: "#C0661A" }, "?");
+
+    // divisória "agora"
+    el("line", { x1: xt + 2, x2: xt + 2, y1: topo - 10, y2: base + 12, stroke: "#12233D", "stroke-width": 1.5, "stroke-dasharray": "3 3" });
+
+    // eixo
+    el("line", { x1: x0 - 8, x2: W - 10, y1: base + 12, y2: base + 12, stroke: "#C9D3D0", "stroke-width": 1 });
+    [["t−3", 6], ["t−2", 7], ["t−1", 8], ["t", 9]].forEach(([r, i]) =>
+      el("text", { x: x0 + i * passo + larg / 2, y: base + 30, "text-anchor": "middle", "font-size": 13, fill: "#4A5A6E" }, r));
+    el("text", { x: cx, y: base + 30, "text-anchor": "middle", "font-size": 13, "font-weight": 700, fill: "#C0661A" }, "t+1");
+    el("text", { x: cx, y: topo + 2, "text-anchor": "middle", "font-size": 12.5, "font-weight": 600, fill: "#C0661A" }, "previsão");
+  })();
+
+  // ---------- navegação e escala ----------
+  const slides = [...document.querySelectorAll(".slide")];
+  const contador = document.getElementById("contador");
+  let atual = 0;
+
+  function escalar() {
+    const s = Math.min(window.innerWidth / 1340, (window.innerHeight - 60) / 760);
+    slides.forEach(sl => sl.style.transform = `scale(${s})`);
+  }
+  function mostrar(i) {
+    atual = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((sl, k) => sl.classList.toggle("ativo", k === atual));
+    contador.textContent = `${atual + 1} / ${slides.length}`;
+  }
+  document.getElementById("ant").onclick = () => mostrar(atual - 1);
+  document.getElementById("prox").onclick = () => mostrar(atual + 1);
+  document.getElementById("tela").onclick = () => {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+    else document.exitFullscreen?.();
+  };
+  document.addEventListener("keydown", e => {
+    if (["ArrowRight", "PageDown", " "].includes(e.key)) { e.preventDefault(); mostrar(atual + 1); }
+    if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); mostrar(atual - 1); }
+    if (e.key === "Home") mostrar(0);
+    if (e.key === "End") mostrar(slides.length - 1);
+  });
+  window.addEventListener("resize", escalar);
+  escalar(); mostrar((parseInt(location.hash.slice(1), 10) || 1) - 1);
+</script>
+</body>
+</html>
