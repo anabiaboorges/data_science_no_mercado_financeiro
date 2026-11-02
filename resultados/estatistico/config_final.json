@@ -1,0 +1,34 @@
+{
+  "frente": "estatistico",
+  "modelo": "arimax",
+  "modelo_base": "arima",
+  "candle": "60min",
+  "janela_meses": 6,
+  "order": [
+    1,
+    0,
+    1
+  ],
+  "seasonal_order": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "exogena": [
+    "ret_wdo_lag1"
+  ],
+  "limiar_q": 0.9,
+  "limiar": 0.028744226755996836,
+  "tp_mult": 1.0,
+  "sl_mult": null,
+  "validacao": [
+    "2024-01-01",
+    "2025-01-01"
+  ],
+  "teste": [
+    "2025-01-01",
+    "2026-04-01"
+  ],
+  "custo_escolha_pts": 5
+}
