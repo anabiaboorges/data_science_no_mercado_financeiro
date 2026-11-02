@@ -108,7 +108,7 @@ Legenda da coluna **Origem**: *Reunião/plano* = decidido pelo grupo em 02/11 e 
 | Compra se previsão > +limiar, vende se < −limiar | Reunião/plano | Operar só quando o modelo está "mais convicto". |
 | Limiar = quantil (0, 50, 75, 90%) do \|previsão\| medido **na validação** | Reunião/plano | A escala da previsão muda de modelo para modelo; o quantil torna a regra comparável. Medir na validação e congelar o valor absoluto evita olhar o teste. |
 | Entra no fechamento de *t*, sai no de *t+1*, ou no TP/SL dentro de *t+1* | Reunião/plano | Operação de 1 candle, coerente com a previsão T+1. |
-| TP/SL = 1× ou 2× a volatilidade recente (desvio do retorno do último pregão) | Reunião/plano | O alvo se adapta ao momento do mercado. Em 60 min, 1× ≈ 0,25% ≈ **360 pts** no teste. |
+| TP/SL = 1× ou 2× a volatilidade recente (desvio do retorno do último pregão) | Reunião/plano | O alvo se adapta ao momento do mercado. Em 60 min, 1× ≈ 0,25% ≈ 360 pts num candle típico do teste, mas ≈ **607 pts** (mediana; de ~320 a ~1.080) nos candles em que o modelo de fato operou, porque ele tende a operar quando a volatilidade está alta. |
 | TP e SL no mesmo candle → conta o stop | Reunião/plano | Com candle de 60 min não se sabe o que veio primeiro; supor o pior evita superestimar o lucro. |
 | Custo de 5 pts por operação (sensibilidade 0/5/10) | Reunião/plano | Corretagem, emolumentos e slippage. |
 | Referência: sinais aleatórios (direção sorteada, mesma regra de TP/SL) | Reunião/plano | O modelo precisa ganhar de "jogar moeda". |
@@ -350,6 +350,7 @@ As bandas acima são de **1 passo** (o próximo candle). Quando o modelo projeta
 | TP/SL no mesmo candle → stop | Hipótese conservadora; pode subestimar levemente o resultado. |
 | Teste com ~210 operações | A esperança tem erro-padrão de ~42 pts; não dá para afirmar nem que o modelo perde nem que ganha com precisão. |
 | WDO termina em 01/04/2026 | Coincide com o fim do teste; sem impacto. |
+| **Buraco nos dados de jun–out/2023** | O CSV do WIN não tem pregões entre o início de junho e 17/10/2023 (o WDO também falha nesse período). As janelas de treino que cobrem esse trecho ficam menores: em 60 min × 6 m, o treino do 1º trimestre de 2024 teve 429 candles, contra ~1.100 nos demais. Afeta igualmente as três frentes (mesmos dados), mas deixa os primeiros trimestres da validação menos confiáveis, sobretudo nas janelas de 6 e 12 meses. |
 
 ---
 
