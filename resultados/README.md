@@ -7,7 +7,7 @@ Uma pasta por frente (`estatistico/`, `ml/`, `redes/`), todas com os mesmos arqu
 | `previsoes/WIN_{candle}_{janela}m_{modelo}_{val\|teste}.csv` | Previsões: datetime, y_true, y_pred, close, high_prox, low_prox, close_prox, volat |
 | `grade_val.csv` | 12 combinações candle × janela: métricas e simulação |
 | `heatmap_theilU.png`, `heatmap_acuracia.png`, `heatmap_esperanca.png` | Heatmaps da grade |
-| `regras_val.csv` | Limiar × take profit × stop loss na validação |
+| `regras_val.csv` | Limiar × take profit × stop loss na validação, para o **modelo base** da frente. Quando o modelo final é uma variante, a regra adotada está no `config_final.json` (estatístico: 1ª linha de `regras_val_arimax_60min_6m.csv`; ML: linha da variante em `variante_val.csv`) |
 | `variante_val.csv` | Variante da frente na melhor combinação |
 | `config_final.json` | Escolhas congeladas antes do teste |
 | `teste_final.csv` | Modelo e sinais aleatórios no teste, custos 0/5/10 pts |
