@@ -50,7 +50,7 @@ São 4 × 3 × 3 = **36 regras** por modelo. A escolha é feita só na validaç�
 |---|---|---|---|---|---|---|
 | Estatístico | ARIMAX, 60 min, 6 meses | quantil 90% (0,0287% ≈ 37 pts) | 1× a volatilidade | sem | 5 pts | Maior esperança na validação (+10,2 ± 18,5 pts/op, não significativa) |
 | ML | RF `rf_d4_f2`, 1 min, 12 meses | 0 (opera sempre) | sem | sem | 5 pts | Nenhuma das 36 regras teve t ≥ 2 → regra padrão |
-| Redes neurais | – | – | – | – | – | Pendente |
+| Redes neurais | LSTM, 60 min, 1 mês | quantil 90% (0,0282%) | 1× a volatilidade | 1× a volatilidade | 5 pts | Maior esperança na validação (+28,2 ± 19,4 pts/op, não significativa) |
 
 Variantes da frente de ML testadas depois (hipóteses registradas antes de rodar, em `ml/hipotese_*.json`): segurar a posição até a previsão virar de sinal e alvo de 10/20 minutos, com os mesmos limiares por quantil, custo de 5 pts (2,5 na entrada + 2,5 na saída) e sem TP/SL.
 
