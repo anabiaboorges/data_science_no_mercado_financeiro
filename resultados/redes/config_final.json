@@ -1,0 +1,22 @@
+{
+  "frente": "redes",
+  "modelo": "lstm",
+  "modelo_base": "mlp",
+  "feats": "LAGS",
+  "candle": "60min",
+  "janela_meses": 1,
+  "limiar_q": 0.9,
+  "limiar": 0.028243065237047612,
+  "tp_mult": 1.0,
+  "sl_mult": 1.0,
+  "validacao": [
+    "2024-01-01",
+    "2025-01-01"
+  ],
+  "teste": [
+    "2025-01-01",
+    "2026-04-01"
+  ],
+  "custo_escolha_pts": 5,
+  "criterio": "plano comum: maior esperança por operação (custo 5 pts); empate → menor Theil U"
+}
