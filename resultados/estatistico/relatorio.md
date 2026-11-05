@@ -2,6 +2,12 @@
 
 > Responsável: Itamar da Silva Rocha Filho · Notebook: [`frentes/estatistico/frente_estatistico.ipynb`](../../frentes/estatistico/frente_estatistico.ipynb) · Resumo de 5 linhas: [`resumo.md`](resumo.md) · Plano: [`planos/PLANO_FRENTES_02.11.md`](../../planos/PLANO_FRENTES_02.11.md)
 
+> **Atualização (nov/2026).** Este relatório descreve o protocolo de 02/11 e não foi reescrito. A reabordagem da frente ([`NOTAS.md`](../../frentes/estatistico/NOTAS.md) e [estudos](../../frentes/estatistico/estudos/README.md)) corrigiu ou completou quatro pontos:
+> 1. **Comparação com o aleatório (Seção 5.5):** o aleatório operava todos os candles. Nos mesmos 214 candles do modelo, ele dá −7,9 pts/op (faixa de 90%: −68 a +55); o modelo (−41) fica no percentil 19, **indistinguível do acaso**. A frase "por operação ele perde mais" não vale.
+> 2. **Custo de 5 pts:** era um exemplo do plano, nunca derivado. Ver o modelo de custo em [`custos.py`](../../frentes/estatistico/custos.py): 2,5 / 7,5 / 12,5 pts por cenário de execução, e o **custo de equilíbrio** de cada estratégia.
+> 3. **Bandas por horário (Seção 6):** resolvidas no [Estudo 07](../../frentes/estatistico/estudos/07_h6_volatilidade.ipynb). Com perfil intradiário recente × nível do dia (HAR), a cobertura das 10h passa de 74% para ~94%.
+> 4. **Cone diário (Seção 6.5):** usa fechamento → fechamento da série contínua sem ajuste de rolagem e inclui um salto falso de ~+1,7% a cada 2 meses. Correção pendente.
+
 Este relatório explica **o que foi feito, por quê e o que os resultados querem dizer**. O `resumo.md` segue o formato fixo de 5 linhas do plano; aqui está o raciocínio completo, para estudar antes da apresentação.
 
 ---
@@ -232,6 +238,7 @@ A regra que mais acerta perde dinheiro, porque o take profit curto corta os ganh
 - **Q3 no teste:** acerta 52,3% das operações (mais da metade) e mesmo assim perde, com payoff de 0,76. Sem stop, as perdas grandes não são cortadas (média −516 pts), e o TP 1× limita os ganhos.
 - **Q4:** não é lucrativa em nenhum custo, nem com custo zero.
 - **Contra o aleatório:** em R$ o modelo perde menos, mas só porque opera 13× menos. **Por operação** ele perde mais (−41 contra −18). A comparação justa é por operação.
+  - **Corrigido (nov/2026):** a comparação justa é com o aleatório **nos mesmos candles**. Nos 214 candles operados pelo modelo, o aleatório dá −7,9 pts/op em média, com faixa de 90% de −68 a +55. O modelo (−41) é indistinguível do acaso; com o sinal invertido, daria +26.
 
 ---
 
